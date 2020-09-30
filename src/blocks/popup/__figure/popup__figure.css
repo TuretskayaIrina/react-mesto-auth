@@ -1,0 +1,10 @@
+.popup__figure {
+  margin: 0;
+  padding: 0;
+  margin-left: 40.7px;
+}
+@media screen and (max-width : 650px) {
+  .popup__figure {
+    margin-left: 25px;
+  }
+}
