@@ -4,6 +4,8 @@ import '../index.css';
 import Header from './Header';
 import Login from './Login';
 import Register from './Register';
+import ProtectedRoute from './ProtectedRoute';
+import InfoTooltip from './InfoTooltip';
 import Main from './Main';
 import Footer from './Footer';
 import EditProfilePopup from './EditProfilePopup';
@@ -230,6 +232,8 @@ function App() {
           <Register />
 
           <Login />
+
+          <InfoTooltip />
 
         </div>
       </CurrentUserContext.Provider>

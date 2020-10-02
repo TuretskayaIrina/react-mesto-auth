@@ -1,0 +1,16 @@
+.infotooltip__container {
+  max-width: 358px;
+  margin: 60px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+@media screen and (max-width : 650px) {
+  .infotooltip__container {
+    max-width: 280px;
+    margin: 50px auto;
+  }
+}
