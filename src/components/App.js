@@ -1,6 +1,9 @@
 import React from 'react';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import '../index.css';
 import Header from './Header';
+import Login from './Login';
+import Register from './Register';
 import Main from './Main';
 import Footer from './Footer';
 import EditProfilePopup from './EditProfilePopup';
@@ -223,6 +226,10 @@ function App() {
           />
 
           <Footer />
+
+          <Register />
+
+          <Login />
 
         </div>
       </CurrentUserContext.Provider>
