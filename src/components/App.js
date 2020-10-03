@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import '../index.css';
 import Header from './Header';
 import Login from './Login';
@@ -15,6 +15,7 @@ import DelitePlacePopup from './DelitePlacePopup';
 import ImagePopup from './ImagePopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import api from '../utils/api';
+import * as auth from '../utils/auth';
 
 function App() {
   const[cards, setCards] = React.useState([]);
@@ -183,20 +184,63 @@ function App() {
     };
   })
 
+  function user() {
+    console.log('user')
+  }
+
+  function handleOut() {
+    console.log('handleOut')
+  }
+
+  function handleRegister() {
+    console.log('handleRegister')
+  }
+
+  function handleLogin() {
+    console.log('handleLogin')
+  }
+
   return (
     <div className="App">
       <CurrentUserContext.Provider value={currentUser}>
         <div className="page">
-          <Header />
-          <Main
-            cards={cards}
-            onEditProfile={handleEditProfileClick}
-            onAddPlace={handleAddPlaceClick}
-            onEditAvatar={handleEditAvatarClick}
-            onCardDelete={handleCardDelete}
-            onCardClick={handleCardClick}
-            onCardLike={handleCardLike}
+          <Header
+            user={user}
+            signOut={handleOut}
           />
+
+          <Switch>
+            <ProtectedRoute
+              exact path="/"
+              component={Main}
+              cards={cards}
+              onEditProfile={handleEditProfileClick}
+              onAddPlace={handleAddPlaceClick}
+              onEditAvatar={handleEditAvatarClick}
+              onCardDelete={handleCardDelete}
+              onCardClick={handleCardClick}
+              onCardLike={handleCardLike}
+            />
+
+            <Route path="/sign-up">
+              <Register
+                onRegister={handleRegister}
+              />
+            </Route>
+
+            <Route path="/sign-in">
+              <Login
+                onLogin={handleLogin}
+              />
+            </Route>
+
+            <Route>
+              {/* {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>} */}
+            </Route>
+
+          </Switch>
+
+          <Footer />
 
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
@@ -226,12 +270,6 @@ function App() {
             card={selectedCard}
             onClose={closeAllPopups}
           />
-
-          <Footer />
-
-          <Register />
-
-          <Login />
 
           <InfoTooltip />
 

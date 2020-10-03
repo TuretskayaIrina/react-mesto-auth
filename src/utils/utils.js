@@ -1,6 +1,6 @@
 // мой конфиг
 
-export const config = {
+const config = {
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-13',
   myId: 'a5b819b34cd334f4803b5b5c',
   headers: {
@@ -10,3 +10,5 @@ export const config = {
 };
 
 export const authUrl = 'https://auth.nomoreparties.co';
+
+export default config;

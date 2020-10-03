@@ -1,0 +1,21 @@
+.header__registration {
+  font-size: 18px;
+  line-height: 22px;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.header__registration:hover {
+  transition: .2s;
+  opacity: .5;
+  cursor: pointer;
+}
+
+
+@media screen and (max-width : 1000px) {
+  .header__registration {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+

@@ -1,7 +1,14 @@
 @import url('./__logo/header__logo.css');
+@import url('./__nav/header__nav.css');
+@import url('./__in/header__in.css');
+@import url('./__registration/header__registration.css');
+@import url('./__data/header__data.css');
+@import url('./__email/header__email.css');
+@import url('./__button/header__button.css');
 
 .header {
   display: flex;
+  justify-content: space-between;
   width: 100%;
   max-width: 882px;
   min-height: 74px;
