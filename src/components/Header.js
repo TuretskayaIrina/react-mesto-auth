@@ -18,7 +18,7 @@ function Header(props) {
           <Route exact path="/">
             <div className="header__data">
               <p className="header__email">{props.user}</p>
-              <button className="header__button" onClick={props.signOut} type="button">Выйти</button>
+              <button className="header__button" onClick={props.onSignOut} type="button">Выйти</button>
             </div>
           </Route>
 

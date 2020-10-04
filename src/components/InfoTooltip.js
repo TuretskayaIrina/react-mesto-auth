@@ -8,8 +8,8 @@ function InfoTooltip(props) {
       <div className="popup__container">
         <div className="infotooltip">
           <div className="infotooltip__container">
-            <img alt="status" src={`${ props.loggedIn ? Ok : Error }`}></img>
-            <h3 className="infotooltip__title">{`${ props.loggedIn ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так!Попробуйте ещё раз.'}`}</h3>
+            <img alt="status" src={`${ props.isSuccess ? Ok : Error }`}></img>
+            <h3 className="infotooltip__title">{`${ props.isSuccess ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так!Попробуйте ещё раз.'}`}</h3>
           </div>
         </div>
         <button className="popup__button-close" type="button" onClick={props.onClose}></button>

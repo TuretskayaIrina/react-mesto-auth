@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import '../index.css';
 import Header from './Header';
 import Login from './Login';
@@ -30,6 +30,9 @@ function App() {
     name: '',
     link: ''
   });
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
+  const [isSuccess, setIsSuccess] = React.useState(false);
+  const history = useHistory();
 
   // получить данные профиля с сервера
   React.useEffect(() => {
@@ -78,6 +81,12 @@ function App() {
     })
   }
 
+  // открыть попап InfoTooltip
+  function handleRegisterConfirm(state) {
+    setIsInfoTooltipOpen(true)
+    setIsSuccess(state);
+  }
+
   // закрытие всех попапов
   function closeAllPopups() {
     setIsDelitePlacePopupOpen(false);
@@ -89,6 +98,7 @@ function App() {
       name: '',
       link: ''
     })
+    setIsInfoTooltipOpen(false);
   }
 
   // закрыть на Esc
@@ -192,9 +202,20 @@ function App() {
     console.log('handleOut')
   }
 
-  function handleRegister() {
+  // обработчик регистрации
+  function handleRegister(email, password) {
     console.log('handleRegister')
+    return auth.register(email, password)
+      .then(() => {
+        handleRegisterConfirm(true);
+        history.push('/sign-in');
+      })
+      .catch((err) => {
+        handleRegisterConfirm(false);
+        console.log(err);
+      })
   }
+
 
   function handleLogin() {
     console.log('handleLogin')
@@ -206,7 +227,7 @@ function App() {
         <div className="page">
           <Header
             user={user}
-            signOut={handleOut}
+            onSignOut={handleOut}
           />
 
           <Switch>
@@ -271,7 +292,11 @@ function App() {
             onClose={closeAllPopups}
           />
 
-          <InfoTooltip />
+          <InfoTooltip
+            isOpen={isInfoTooltipOpen}
+            onClose={closeAllPopups}
+            isSuccess={isSuccess}
+          />
 
         </div>
       </CurrentUserContext.Provider>

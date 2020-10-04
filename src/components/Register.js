@@ -17,15 +17,39 @@ function Register({ onRegister }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    onRegister(password, email)
+    if (!email || !password) {
+      return;
+    }
+    onRegister(email, password)
+    console.log(onRegister(email, password))
   }
 
   return(
     <form onSubmit={handleSubmit} className="login">
       <h2 className="login__title">Регистрация</h2>
-      <input className="login__input" required placeholder="Email" type="email" />
-      <input onChange={handleChangePassword} className="login__input" required placeholder="Пароль" type="password" minLength="10" maxLength="40" />
-      <button onChange={handleChangeEmail} className="login__submit" type="submit">Зарегистрироваться</button>
+      <input
+        onChange={handleChangeEmail}
+        className="login__input"
+        required
+        placeholder="Email"
+        type="email"
+        id="email-input"
+        name="email"
+        // value={email || ''}
+      />
+      <input
+        onChange={handleChangePassword}
+        className="login__input"
+        required
+        placeholder="Пароль"
+        type="password"
+        minLength="10"
+        maxLength="40"
+        id="password-input"
+        name="password"
+        // value={password || ''}
+      />
+      <button  className="login__submit" type="submit">Зарегистрироваться</button>
       <Link to="/sign-in" className="login__link">Уже зарегистрированы? Войти</Link>
     </form>
   );
