@@ -2,4 +2,20 @@
   font-size: 18px;
   line-height: 22px;
   color: #A9A9A9;
+  background: none;
+  border: none;
+
+}
+
+.header__button:hover {
+  transition: .2s;
+  opacity: .5;
+  cursor: pointer;
+}
+
+@media screen and (max-width : 650px) {
+  .header__button {
+    font-size: 14px;
+    line-height: 17px;
+  }
 }

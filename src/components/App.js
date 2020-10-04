@@ -32,6 +32,8 @@ function App() {
   });
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
   const [isSuccess, setIsSuccess] = React.useState(false);
+  const [userData, setUserData] = React.useState(null);
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const history = useHistory();
 
   // получить данные профиля с сервера
@@ -194,10 +196,6 @@ function App() {
     };
   })
 
-  function user() {
-    console.log('user')
-  }
-
   function handleOut() {
     console.log('handleOut')
   }
@@ -216,9 +214,43 @@ function App() {
       })
   }
 
+  // проверить токен
+  function tokenCheck() {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      auth.getContent(jwt)
+        .then((res) => {
+          if (res) {
+            console.log(res)
+            setUserData({
+              id: res.data._id,
+              email: res.data.email
+            });
+            setLoggedIn(true);
+            history.push('/');
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          history.push('/sign-in');
+        });
+    }
+  }
 
-  function handleLogin() {
+  // обработчик авторизации
+  function handleLogin(email, password) {
     console.log('handleLogin')
+    return auth.authorize(email, password)
+      .then((res) => {
+        console.log(res)
+        if (res && res.token) {
+          localStorage.setItem('jwt', res.token);
+          tokenCheck();
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   return (
@@ -226,13 +258,15 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <div className="page">
           <Header
-            user={user}
+            userData={userData}
             onSignOut={handleOut}
+            loggedIn={loggedIn}
           />
 
           <Switch>
             <ProtectedRoute
               exact path="/"
+              loggedIn={loggedIn}
               component={Main}
               cards={cards}
               onEditProfile={handleEditProfileClick}
@@ -256,7 +290,7 @@ function App() {
             </Route>
 
             <Route>
-              {/* {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>} */}
+              {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
             </Route>
 
           </Switch>

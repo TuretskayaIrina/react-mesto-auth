@@ -21,7 +21,6 @@ function Register({ onRegister }) {
       return;
     }
     onRegister(email, password)
-    console.log(onRegister(email, password))
   }
 
   return(

@@ -18,14 +18,29 @@ function Login({ onLogin }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    onLogin(password, email)
+    if (!email || !password) {
+      return;
+    }
+    onLogin(email, password)
   }
 
   return(
     <form onSubmit={handleSubmit} className="login">
       <h2 className="login__title">Вход</h2>
-      <input onChange={handleChangeEmail} className="login__input" required placeholder="Email" type="email" />
-      <input onChange={handleChangePassword} className="login__input" required placeholder="Пароль" type="password" minLength="10" maxLength="40" />
+      <input
+        onChange={handleChangeEmail}
+        className="login__input"
+        required
+        placeholder="Email"
+        type="email"
+      />
+      <input
+        onChange={handleChangePassword}
+        className="login__input"
+        required placeholder="Пароль"
+        type="password"
+        minLength="10" maxLength="40"
+      />
       <button className="login__submit" type="submit">Войти</button>
       <Link to="/sign-up" className="login__link">Ещё не зарегистрированы? Регистрация</Link>
     </form>
