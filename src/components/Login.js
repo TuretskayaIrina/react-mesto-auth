@@ -16,6 +16,7 @@ function Login({ onLogin }) {
     setEmail (e.target.value);
   }
 
+  // обработчик отправки формы авторизации
   function handleSubmit(e) {
     e.preventDefault();
     if (!email || !password) {
@@ -33,6 +34,7 @@ function Login({ onLogin }) {
         required
         placeholder="Email"
         type="email"
+        value={email || ''}
       />
       <input
         onChange={handleChangePassword}
@@ -40,6 +42,7 @@ function Login({ onLogin }) {
         required placeholder="Пароль"
         type="password"
         minLength="10" maxLength="40"
+        value={password || ''}
       />
       <button className="login__submit" type="submit">Войти</button>
       <Link to="/sign-up" className="login__link">Ещё не зарегистрированы? Регистрация</Link>

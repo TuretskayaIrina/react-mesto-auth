@@ -15,6 +15,7 @@ function Register({ onRegister }) {
     setEmail (e.target.value);
   }
 
+  // обработчик отправки формы регистрации
   function handleSubmit(e) {
     e.preventDefault();
     if (!email || !password) {
@@ -32,9 +33,12 @@ function Register({ onRegister }) {
         required
         placeholder="Email"
         type="email"
+        minLength="5"
+        maxLength="40"
+        pattern="\S+@\S+\.\S+"
         id="email-input"
         name="email"
-        // value={email || ''}
+        value={email || ''}
       />
       <input
         onChange={handleChangePassword}
@@ -46,7 +50,7 @@ function Register({ onRegister }) {
         maxLength="40"
         id="password-input"
         name="password"
-        // value={password || ''}
+        value={password || ''}
       />
       <button  className="login__submit" type="submit">Зарегистрироваться</button>
       <Link to="/sign-in" className="login__link">Уже зарегистрированы? Войти</Link>

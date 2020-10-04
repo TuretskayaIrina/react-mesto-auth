@@ -34,7 +34,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         <input ref={title} id="place" className="popup__input popup__input_place" type="text" name="placeInput"  placeholder="Название" required minLength="1" maxLength="30" />
         <span id="place-error" className="popup__input-error" />
 
-        <input ref={link}  id="link" className="popup__input popup__input_link" type="url" name="linkInput"  placeholder="Ссылка на картинку" required />
+        <input ref={link}  id="link-card" className="popup__input popup__input_link" type="url" name="linkInputCard"  placeholder="Ссылка на картинку" required />
         <span id="link-error" className="popup__input-error" />
       </>
     }

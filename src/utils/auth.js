@@ -14,21 +14,14 @@ export const register = (email, password) => {
     }
   )
     .then((res) => {
-      if (res.ok) {
+      if (res.status !== 400) {
         return res.json();
-      }
-      else {
-        return Promise.reject(`Error: ${res.status}`);
+      } else {
+        throw new Error('некорректно заполнено одно из полей');
       }
     })
-    .then(data => {
-      if (data.token) {
-        localStorage.setItem('jwt', data.token);
-        return data;
-      }
-      return;
-    })
-    .catch((err) => console.log(err));
+    .then(res => res)
+    .catch(err => console.log(err));
 }
 
 // запросить авторизацию пользователя
@@ -45,12 +38,29 @@ export const authorize = (email, password) => {
     }
   )
     .then((res) => {
-      if (res.ok) {
-        return res.json();
+      try {
+        if (res.status === 200) {
+          return res.json();
+        }
+        if (res.status === 400) {
+          throw new Error('не передано одно из полей');
+        }
+        if (res.status === 401) {
+          throw new Error('пользователь с email не найден');
+        }
       }
-      else {
-        return Promise.reject(`Error: ${res.status}`);
+      catch (e) {
+        console.log(e);
+        return e;
       }
+    })
+
+    .then(data => {
+      if (data.token) {
+        localStorage.setItem('jwt', data.token);
+        return data;
+      }
+      return;
     })
     .catch((err) => console.log(err))
 }
@@ -66,12 +76,24 @@ export const getContent = (token) => {
     }
   })
     .then((res) => {
-      if (res.ok) {
+      try {
+        if (res.status === 200) {
           return res.json();
+        }
+        if (res.status === 400) {
+          throw new Error('Токен не передан или передан не в том формате');
+        }
+        if (res.status === 401) {
+          throw new Error('Переданный токен некорректен');
+        }
       }
-      else {
-          return Promise.reject(`Error: ${res.status}`);
+      catch (e) {
+        console.log(e);
+        return e;
       }
+    })
+    .then(data => {
+      return data;
     })
     .catch(err => console.log(err))
 }

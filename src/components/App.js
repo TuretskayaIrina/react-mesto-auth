@@ -36,6 +36,12 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const history = useHistory();
 
+  // проверить токен в локальном хранилище при монтировании App
+  React.useEffect(() => {
+    tokenCheck();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // получить данные профиля с сервера
   React.useEffect(() => {
     api.getUserInfo()
@@ -144,7 +150,6 @@ function App() {
     handleDelitePlaceClick();
   }
 
-
   // удаление карточки
   function handleConfirmCardDelete() {
     api.deleteCard(cardDelete._id)
@@ -196,13 +201,15 @@ function App() {
     };
   })
 
+  // разлогиниться
   function handleOut() {
-    console.log('handleOut')
+    localStorage.removeItem('jwt');
+    history.push('/login');
+    setLoggedIn(false);
   }
 
   // обработчик регистрации
   function handleRegister(email, password) {
-    console.log('handleRegister')
     return auth.register(email, password)
       .then(() => {
         handleRegisterConfirm(true);
@@ -214,14 +221,13 @@ function App() {
       })
   }
 
-  // проверить токен
+  // проверить валидность токена и получить email для вставки в шапку сайта
   function tokenCheck() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
       auth.getContent(jwt)
         .then((res) => {
           if (res) {
-            console.log(res)
             setUserData({
               id: res.data._id,
               email: res.data.email
@@ -239,10 +245,8 @@ function App() {
 
   // обработчик авторизации
   function handleLogin(email, password) {
-    console.log('handleLogin')
     return auth.authorize(email, password)
       .then((res) => {
-        console.log(res)
         if (res && res.token) {
           localStorage.setItem('jwt', res.token);
           tokenCheck();
