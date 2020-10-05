@@ -1,7 +1,7 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function DelitePlacePopup(props) {
+function DeletePlacePopup(props) {
 
   // обработчик отправки удаления карточки
   function handleSubmit(e) {
@@ -20,4 +20,4 @@ function DelitePlacePopup(props) {
   )
 }
 
-export default DelitePlacePopup;
+export default DeletePlacePopup;
