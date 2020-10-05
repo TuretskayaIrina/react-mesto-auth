@@ -14,13 +14,6 @@ export const register = (email, password) => {
     }
   )
 
-    // .then((res) => {
-    //   if (res.status !== 400) {
-    //     return res.json();
-    //   }
-    //   throw new Error('некорректно заполнено одно из полей');
-    // })
-
     .then((res) => {
       if (res.status !== 400) {
         return res.json();
