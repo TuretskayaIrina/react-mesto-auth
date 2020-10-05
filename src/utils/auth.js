@@ -13,6 +13,14 @@ export const register = (email, password) => {
       body: JSON.stringify({password, email})
     }
   )
+
+    // .then((res) => {
+    //   if (res.status !== 400) {
+    //     return res.json();
+    //   }
+    //   throw new Error('некорректно заполнено одно из полей');
+    // })
+
     .then((res) => {
       if (res.status !== 400) {
         return res.json();
@@ -21,7 +29,7 @@ export const register = (email, password) => {
       }
     })
     .then(res => res)
-    .catch(err => console.log(err));
+    .catch((err) => {return Promise.reject(err.message)});
 }
 
 // запросить авторизацию пользователя
@@ -62,7 +70,7 @@ export const authorize = (email, password) => {
       }
       return;
     })
-    .catch((err) => console.log(err))
+    .catch((err) => {return Promise.reject(err.message)});
 }
 
 // проверить валидность токена и получить email для вставки в шапку сайта
@@ -95,5 +103,5 @@ export const getContent = (token) => {
     .then(data => {
       return data;
     })
-    .catch(err => console.log(err))
+    .catch((err) => {return Promise.reject(err.message)});
 }
