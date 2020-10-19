@@ -27,7 +27,10 @@ class Api {
     return fetch(
       `${this.baseUrl}/users/me`,
       {
-        headers: this.headers
+        headers: {
+          ...this.headers,
+          'Authorization': `Bearer ${localStorage.jwt}`,
+        }
       }
     )
       .then(this._handleResponse)
@@ -40,7 +43,10 @@ class Api {
       `${this.baseUrl}/users/me`,
       {
         method: 'PATCH',
-        headers: this.headers,
+        headers: {
+          ...this.headers,
+          'Authorization': `Bearer ${localStorage.jwt}`,
+        },
         body: JSON.stringify({
           name: data.name,
           about: data.about
@@ -57,7 +63,10 @@ class Api {
       `${this.baseUrl}/users/me/avatar`,
       {
         method: 'PATCH',
-        headers: this.headers,
+        headers: {
+          ...this.headers,
+          'Authorization': `Bearer ${localStorage.jwt}`,
+        },
         body: JSON.stringify({
           avatar: data.avatar
         })
@@ -73,7 +82,10 @@ class Api {
     return fetch(
       `${this.baseUrl}/cards`,
       {
-        headers: this.headers
+        headers: {
+          ...this.headers,
+          'Authorization': `Bearer ${localStorage.jwt}`,
+        }
       }
     )
       .then(this._handleResponse)
@@ -86,7 +98,10 @@ class Api {
       `${this.baseUrl}/cards`,
       {
         method: 'POST',
-        headers: this.headers,
+        headers: {
+          ...this.headers,
+          'Authorization': `Bearer ${localStorage.jwt}`,
+        },
         body: JSON.stringify({
           name: data.name,
           link: data.link
@@ -103,7 +118,10 @@ class Api {
       `${this.baseUrl}/cards/likes/${id}`,
       {
         method: 'PUT',
-        headers: this.headers
+        headers: {
+          ...this.headers,
+          'Authorization': `Bearer ${localStorage.jwt}`,
+        }
       }
     )
       .then(this._handleResponse)
@@ -116,7 +134,10 @@ class Api {
       `${this.baseUrl}/cards/likes/${id}`,
       {
         method: 'DELETE',
-        headers: this.headers
+        headers: {
+          ...this.headers,
+          'Authorization': `Bearer ${localStorage.jwt}`,
+        }
       }
     )
       .then(this._handleResponse)
@@ -129,7 +150,10 @@ class Api {
       `${this.baseUrl}/cards/${id}`,
       {
         method: 'DELETE',
-        headers: this.headers
+        headers: {
+          ...this.headers,
+          'Authorization': `Bearer ${localStorage.jwt}`,
+        }
       }
     )
       .then(this._handleResponse)
