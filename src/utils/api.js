@@ -1,9 +1,8 @@
 import config from './utils';
 
 class Api {
-  constructor({ baseUrl, myId, headers = {} }) {
+  constructor({ baseUrl, headers = {} }) {
     this.baseUrl = baseUrl;
-    this.myId = myId;
     this.headers = headers;
   }
 
