@@ -3,9 +3,9 @@
 const config = {
   baseUrl: 'https://api.kusto.students.nomoreparties.xyz',
   headers: {
-    authorization: { Authorization: localStorage.authToken },
-    'Content-Type': 'application/json',
     'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${localStorage.jwt}`,
   }
 };
 
