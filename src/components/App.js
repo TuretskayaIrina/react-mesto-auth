@@ -11,7 +11,7 @@ import Footer from './Footer';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
-import DelitePlacePopup from './DelitePlacePopup';
+import DeletePlacePopup from './DeletePlacePopup';
 import ImagePopup from './ImagePopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import api from '../utils/api';
@@ -24,7 +24,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [isDelitePlacePopupOpen, setIsDelitePlacePopupOpen] = React.useState(false);
+  const [isDeletePlacePopupOpen, setIsDeletePlacePopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({
     isOpen: false,
     name: '',
@@ -62,7 +62,7 @@ function App() {
 
   // открыть попап удаления
   function handleDelitePlaceClick() {
-    setIsDelitePlacePopupOpen(true);
+    setIsDeletePlacePopupOpen(true);
   }
 
   // открыть попап изменения аватара
@@ -97,7 +97,7 @@ function App() {
 
   // закрытие всех попапов
   function closeAllPopups() {
-    setIsDelitePlacePopupOpen(false);
+    setIsDeletePlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -313,8 +313,8 @@ function App() {
             onAddPlace={handleAddPlaceSubmit}
           />
 
-          <DelitePlacePopup
-            isOpen={isDelitePlacePopupOpen}
+          <DeletePlacePopup
+            isOpen={isDeletePlacePopupOpen}
             onClose={closeAllPopups}
             onSubmit={handleConfirmCardDelete}
           />
