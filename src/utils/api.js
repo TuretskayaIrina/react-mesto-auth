@@ -29,7 +29,7 @@ class Api {
       {
         headers: {
           ...this.headers,
-          'Authorization': `Bearer ${localStorage.jwt}`,
+          ...{ 'Authorization': `Bearer ${localStorage.jwt}` },
         }
       }
     )
@@ -45,7 +45,7 @@ class Api {
         method: 'PATCH',
         headers: {
           ...this.headers,
-          'Authorization': `Bearer ${localStorage.jwt}`,
+          ...{ 'Authorization': `Bearer ${localStorage.jwt}` },
         },
         body: JSON.stringify({
           name: data.name,
@@ -65,7 +65,7 @@ class Api {
         method: 'PATCH',
         headers: {
           ...this.headers,
-          'Authorization': `Bearer ${localStorage.jwt}`,
+          ...{ 'Authorization': `Bearer ${localStorage.jwt}` },
         },
         body: JSON.stringify({
           avatar: data.avatar
@@ -84,7 +84,7 @@ class Api {
       {
         headers: {
           ...this.headers,
-          'Authorization': `Bearer ${localStorage.jwt}`,
+          ...{ 'Authorization': `Bearer ${localStorage.jwt}` },
         }
       }
     )
@@ -100,7 +100,7 @@ class Api {
         method: 'POST',
         headers: {
           ...this.headers,
-          'Authorization': `Bearer ${localStorage.jwt}`,
+          ...{ 'Authorization': `Bearer ${localStorage.jwt}` },
         },
         body: JSON.stringify({
           name: data.name,
@@ -120,7 +120,7 @@ class Api {
         method: 'PUT',
         headers: {
           ...this.headers,
-          'Authorization': `Bearer ${localStorage.jwt}`,
+          ...{ 'Authorization': `Bearer ${localStorage.jwt}` },
         }
       }
     )
@@ -136,7 +136,7 @@ class Api {
         method: 'DELETE',
         headers: {
           ...this.headers,
-          'Authorization': `Bearer ${localStorage.jwt}`,
+          ...{ 'Authorization': `Bearer ${localStorage.jwt}` },
         }
       }
     )
@@ -152,7 +152,7 @@ class Api {
         method: 'DELETE',
         headers: {
           ...this.headers,
-          'Authorization': `Bearer ${localStorage.jwt}`,
+          ...{ 'Authorization': `Bearer ${localStorage.jwt}` },
         }
       }
     )
