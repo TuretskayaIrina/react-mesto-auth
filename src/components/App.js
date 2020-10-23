@@ -42,23 +42,73 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // получить данные профиля с сервера
+  // залогиниться и получить данные пользователя + карточки
   React.useEffect(() => {
-    api.getUserInfo()
-      .then((data) => {
-        setCurrentUser(data);
-      })
-      .catch((err) => console.log(err))
-  }, []);
+    if ( loggedIn ){
+      Promise.all([ api.getUserInfo({ token: localStorage.jwt }), api.getInitialCards({ token: localStorage.jwt }) ])
+        .then( ([{ data: user }, items ]) => {
+          setCurrentUser(user)
+          setCards(items.reverse())
+        })
+        .catch((err) => console.log(err))
+    }
+  }, [loggedIn]);
 
-  // получить карточки с сервера
-  React.useEffect(() => {
-    api.getInitialCards()
-      .then((items) => {
-        setCards(items);
+  // разлогиниться
+  function handleOut() {
+    localStorage.removeItem('jwt');
+    history.push('/login');
+    setLoggedIn(false);
+  }
+
+  // обработчик регистрации
+  function handleRegister(email, password) {
+    return auth.register(email, password)
+      .then(() => {
+        handleRegisterConfirm(true);
+        history.push('/sign-in');
       })
-      .catch((err) => console.log(err))
-  }, []);
+      .catch((err) => {
+        handleRegisterConfirm(false);
+        console.log(err);
+      })
+  }
+
+  // проверить валидность токена и получить email для вставки в шапку сайта
+  function tokenCheck() {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      auth.getContent(jwt)
+        .then((res) => {
+          if (res) {
+            setUserData({
+              id: res.data._id,
+              email: res.data.email
+            });
+            setLoggedIn(true);
+            history.push('/');
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          history.push('/sign-in');
+        });
+    }
+  }
+
+  // обработчик авторизации
+  function handleLogin(email, password) {
+    return auth.authorize(email, password)
+      .then((res) => {
+        if (res && res.token) {
+          localStorage.setItem('jwt', res.token);
+          tokenCheck();
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
   // открыть попап удаления
   function handleDelitePlaceClick() {
@@ -125,17 +175,17 @@ function App() {
 
   // обработчик лайков
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
 
     if (!isLiked) {
-      api.setLike(card._id)
+      api.setLike({ token: localStorage.jwt, cardId: card._id })
       .then((newCard) => {
         const newCards = cards.map((c) => c._id === card._id ? newCard : c);
         setCards(newCards);
       })
       .catch((err) => console.log(err))
     } else {
-      api.deleteLike(card._id)
+      api.deleteLike({ token: localStorage.jwt, cardId: card._id })
       .then((newCard) => {
         const newCards = cards.map((c) => c._id === card._id ? newCard : c);
         setCards(newCards)
@@ -152,7 +202,7 @@ function App() {
 
   // удаление карточки
   function handleConfirmCardDelete() {
-    api.deleteCard(cardDelete._id)
+    api.deleteCard({ token: localStorage.jwt, cardId: cardDelete._id })
     .then(() => {
       setCards(cards.filter((c) => c._id !== cardDelete._id));
       closeAllPopups();
@@ -160,29 +210,30 @@ function App() {
     .catch((err) => console.log(err))
   }
 
+
   // изменить описание профиля
-  function handleUpdateUser(data) {
-    api.setUserInfo(data)
-      .then((res) => {
-        setCurrentUser(res);
+  function handleUpdateUser({ name, about }) {
+    api.setUserInfo({ token: localStorage.jwt, name, about })
+      .then(() => {
+        setCurrentUser({ ...currentUser, name, about });
         closeAllPopups();
       })
       .catch((err) => console.log(err))
   }
 
   // изменить аватар
-  function handleUpdateAvatar(data) {
-    api.changeAvatar(data)
-      .then((res) => {
-        setCurrentUser(res);
+  function handleUpdateAvatar({ avatar }) {
+    api.changeAvatar({ token: localStorage.jwt, avatar })
+      .then(() => {
+        setCurrentUser({ ...currentUser, avatar });
         closeAllPopups();
       })
       .catch((err) => console.log(err))
   }
 
   // добавить новое место
-  function handleAddPlaceSubmit(data){
-    api.setCard(data)
+  function handleAddPlaceSubmit({ name, link }){
+    api.setCard({ token: localStorage.jwt, name, link })
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
@@ -200,62 +251,6 @@ function App() {
       window.removeEventListener('mousedown', handleOverlayClose);
     };
   })
-
-  // разлогиниться
-  function handleOut() {
-    localStorage.removeItem('jwt');
-    history.push('/login');
-    setLoggedIn(false);
-  }
-
-  // обработчик регистрации
-  function handleRegister(email, password) {
-    return auth.register(email, password)
-      .then(() => {
-        handleRegisterConfirm(true);
-        history.push('/sign-in');
-      })
-      .catch((err) => {
-        handleRegisterConfirm(false);
-        console.log(err);
-      })
-  }
-
-  // проверить валидность токена и получить email для вставки в шапку сайта
-  function tokenCheck() {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      auth.getContent(jwt)
-        .then((res) => {
-          if (res) {
-            setUserData({
-              id: res.data._id,
-              email: res.data.email
-            });
-            setLoggedIn(true);
-            history.push('/');
-          }
-        })
-        .catch(err => {
-          console.log(err);
-          history.push('/sign-in');
-        });
-    }
-  }
-
-  // обработчик авторизации
-  function handleLogin(email, password) {
-    return auth.authorize(email, password)
-      .then((res) => {
-        if (res && res.token) {
-          localStorage.setItem('jwt', res.token);
-          tokenCheck();
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
 
   return (
     <div className="App">

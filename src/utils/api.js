@@ -23,10 +23,11 @@ class Api {
   }
 
   // получить данные профиля
-  getUserInfo() {
+  getUserInfo = () => {
     return fetch(
       `${this.baseUrl}/users/me`,
       {
+        method: 'GET',
         headers: {
           ...this.headers,
           ...{ 'Authorization': `Bearer ${localStorage.jwt}` },
@@ -82,6 +83,7 @@ class Api {
     return fetch(
       `${this.baseUrl}/cards`,
       {
+        method: 'GET',
         headers: {
           ...this.headers,
           ...{ 'Authorization': `Bearer ${localStorage.jwt}` },
@@ -113,14 +115,14 @@ class Api {
   }
 
   // отправить лайк
-  setLike(id) {
+  setLike({token, cardId}) {
     return fetch(
-      `${this.baseUrl}/cards/likes/${id}`,
+      `${this.baseUrl}/cards/${cardId}/likes`,
       {
         method: 'PUT',
         headers: {
           ...this.headers,
-          ...{ 'Authorization': `Bearer ${localStorage.jwt}` },
+          ...{ 'Authorization': `Bearer ${token}` },
         }
       }
     )
@@ -129,14 +131,14 @@ class Api {
   }
 
   // удалить лайк
-  deleteLike(id) {
+  deleteLike({token, cardId}) {
     return fetch(
-      `${this.baseUrl}/cards/likes/${id}`,
+      `${this.baseUrl}/cards/${cardId}/likes`,
       {
         method: 'DELETE',
         headers: {
           ...this.headers,
-          ...{ 'Authorization': `Bearer ${localStorage.jwt}` },
+          ...{ 'Authorization': `Bearer ${token}` },
         }
       }
     )
@@ -145,14 +147,14 @@ class Api {
   }
 
   // удалить карточку
-  deleteCard(id) {
+  deleteCard({token, cardId}) {
     return fetch(
-      `${this.baseUrl}/cards/${id}`,
+      `${this.baseUrl}/cards/${cardId}`,
       {
         method: 'DELETE',
         headers: {
           ...this.headers,
-          ...{ 'Authorization': `Bearer ${localStorage.jwt}` },
+          ...{ 'Authorization': `Bearer ${token}` },
         }
       }
     )

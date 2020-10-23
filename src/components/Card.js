@@ -3,12 +3,13 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 
 function Card(props) {
-  const currentUser = React.useContext(CurrentUserContext);
 
-  const isOwn = props.card.owner._id === currentUser._id;
+  const { _id: userId } = React.useContext(CurrentUserContext)
+
+  const isOwn = props.card.owner === userId;
   const cardDeleteButtonClassName = (`elements__delete ${isOwn ? 'elements__delete_active' : ''}`);
 
-  const isLiked = props.card.likes.some(i => i._id === currentUser._id);
+  const isLiked = props.card.likes.some(i => i === userId);
   const cardLikeButtonClassName = (`elements__like ${isLiked ? 'elements__like_active' : ''}`);
 
   // обработчик попапа просмотра картинки

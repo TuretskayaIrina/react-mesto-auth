@@ -14,7 +14,7 @@ ___
 
 Планы по доработке:
 
-- подключить [бэк на express.js](https://github.com/TuretskayaIrina/express-mesto)
+- подключить [backend на express.js](https://github.com/TuretskayaIrina/react-mesto-api-full)
 - сделать заглушки на карточки
 - сделать loader
 - при наведении на like вывести список лайкнувших юзеров
@@ -23,4 +23,4 @@ ___
 
 **Deploy**
 
-* [Тут появится ссылка на готовый проект]()
+* [Регистрируйтесь, ставьте лайки =)](https://cat.students.nomoreparties.space/)

@@ -1,7 +1,7 @@
 import {authUrl} from './utils';
 
 // запросить регистрацию пользователя
-export const register = (email, password) => {
+export const register = ( email, password ) => {
   return fetch(
     `${authUrl}/signup`,
     {
@@ -26,7 +26,7 @@ export const register = (email, password) => {
 }
 
 // запросить авторизацию пользователя
-export const authorize = (email, password) => {
+export const authorize = ( email, password ) => {
   return fetch(
     `${authUrl}/signin`,
     {
