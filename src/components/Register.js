@@ -36,6 +36,7 @@ function Register({ onRegister }) {
         minLength="5"
         maxLength="40"
         pattern="\S+@\S+\.\S+"
+        title="Пожалуйста, введите email в формате вашник@сервис.домен (например user@gmail.com)"
         id="email-input"
         name="email"
         value={email || ''}
@@ -44,6 +45,8 @@ function Register({ onRegister }) {
         onChange={handleChangePassword}
         className="login__input"
         required
+        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
+        title="Пожалуйста, включите как минимум 1 символ верхнего регистра, 1 символ нижнего регистра и 1 цифру."
         placeholder="Пароль"
         type="password"
         minLength="10"
