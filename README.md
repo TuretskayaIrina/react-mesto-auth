@@ -1,26 +1,58 @@
-# Здесь будет  проект на Реакте с авторизацией и регистрацией
-
+# Mesto (frontend)
 ___
 
 
+This repository contains the frontend for the Mesto project. Mesto is an application based on the social network Instagram.
 
-Данный проект разработан с использованием CRA (Create React App)
-Сейчас ведется работа по написанию бэкенда на express.js.
-Окончание работ запланировано на конец октября 2020г.
-
-Оригинальную версию проекта на чистом JS можно посмотреть [тут](https://github.com/TuretskayaIrina/mesto)
-
+You can see the backend part [here](https://github.com/TuretskayaIrina/react-mesto-api-full)
+You can see the original version of the project in vanilla JS [here](https://github.com/TuretskayaIrina/mesto)
+### Tech
 ___
 
-Планы по доработке:
+* [React](https://ru.reactjs.org/)
+* [BEM](https://ru.bem.info/)
+* [Figma](https://www.figma.com/)
 
-- подключить [backend на express.js](https://github.com/TuretskayaIrina/react-mesto-api-full)
-- сделать заглушки на карточки
-- сделать loader
-- при наведении на like вывести список лайкнувших юзеров
-- поработать над безопасностью
+### Design
+___
 
+* [The first part in Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4?node-id=80%3A76)
+* [The second part in Figma](https://www.figma.com/file/nlYpT4VhFiwimn2YlncrcF/JavaScript.-Sprint-5?node-id=90%3A378)
+* [The third part in Figma](https://www.figma.com/file/hhhIavVTeuilfPPZ6sbifl/JavaScript.-Sprint-9?node-id=4002%3A309)
 
-**Deploy**
+### Installation
+___
 
-* [Регистрируйтесь, ставьте лайки =)](https://cat.students.nomoreparties.space/)
+Mesto requires [Node.js](https://nodejs.org/) v13+ to run.
+
+Install the dependencies...
+```sh
+$ npm install 
+```
+and start app
+```sh
+$ npm run start
+```
+#### Building
+___
+To build use the command
+```sh
+$ npm run build
+```
+
+### Todos
+___
+
+- background image for cards
+- background image for avatar
+- output validation in span
+- more messages for InfoTooltip
+- loader
+- output like list
+- cookies
+- more security
+
+### Deploy
+___
+
+[Register and put likes =)](https://cat.students.nomoreparties.space/)
