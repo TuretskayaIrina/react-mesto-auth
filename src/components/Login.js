@@ -31,19 +31,17 @@ function Login({ onLogin }) {
         name="email"
         value={values.email || ''}
       />
-      <span id="email-auth-error" className="popup__input-error" >{errors.email || ''}</span>
+      <span id="email-auth-error" className="popup__input-error popup__input-error_register" >{errors.email || ''}</span>
       <input
         onChange={handleChange}
         className="login__input"
         required placeholder="Пароль"
         type="password"
         id="password"
-        minLength="10"
-        maxLength="40"
         name="password"
         value={values.password || ''}
       />
-      <span id="password-auth-error" className="popup__input-error" >{errors.password || ''}</span>
+      <span id="password-auth-error" className="popup__input-error popup__input-error_register" >{errors.password || ''}</span>
       <button className={isValid ? 'login__submit login__submit-active' : 'login__submit login__submit-disabled'} type="submit" disabled={!isValid}>Войти</button>
       <Link to="/sign-up" className="login__link">Ещё не зарегистрированы? Регистрация</Link>
     </form>

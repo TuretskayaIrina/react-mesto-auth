@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import FormValidator from '../hooks/FormValidator';
 
 function Register({ onRegister }) {
-  // const[ password, setPassword ] = React.useState('');
-  // const[ email, setEmail ] = React.useState('');
 
   // валидация формы
   const {values, handleChange, errors, isValid, resetForm} = FormValidator();
@@ -36,7 +34,7 @@ function Register({ onRegister }) {
         name="email"
         value={values.email || ''}
       />
-      <span id="email-register-error" className="popup__input-error" >{errors.email || ''}</span>
+      <span id="email-register-error" className="popup__input-error popup__input-error_register" >{errors.email || ''}</span>
       <input
         onChange={handleChange}
         className="login__input"
@@ -49,7 +47,7 @@ function Register({ onRegister }) {
         name="password"
         value={values.password || ''}
       />
-      <span id="password-register-error" className="popup__input-error" >{errors.password || ''}</span>
+      <span id="password-register-error" className="popup__input-error popup__input-error_register" >{errors.password || ''}</span>
       <button  className={isValid ? 'login__submit login__submit-active' : 'login__submit login__submit-disabled'} type="submit" disabled={!isValid}>Зарегистрироваться</button>
       <Link to="/sign-in" className="login__link">Уже зарегистрированы? Войти</Link>
     </form>

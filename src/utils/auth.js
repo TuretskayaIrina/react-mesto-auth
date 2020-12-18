@@ -15,14 +15,12 @@ export const register = ( email, password ) => {
   )
 
     .then((res) => {
-      if (res.status !== 400) {
-        return res.json();
+      if (res.status === 200) {
+        return res.json()
       } else {
-        throw new Error('некорректно заполнено одно из полей');
+        return Promise.reject(res)
       }
     })
-    .then(res => res)
-    .catch((err) => {return Promise.reject(err.message)});
 }
 
 // запросить авторизацию пользователя
@@ -39,20 +37,10 @@ export const authorize = ( email, password ) => {
     }
   )
     .then((res) => {
-      try {
-        if (res.status === 200) {
-          return res.json();
-        }
-        if (res.status === 400) {
-          throw new Error('не передано одно из полей');
-        }
-        if (res.status === 401) {
-          throw new Error('пользователь с email не найден');
-        }
-      }
-      catch (e) {
-        console.log(e);
-        return e;
+      if (res.status === 200) {
+        return res.json()
+      } else {
+        return Promise.reject(res)
       }
     })
 
@@ -63,7 +51,6 @@ export const authorize = ( email, password ) => {
       }
       return;
     })
-    .catch((err) => {return Promise.reject(err.message)});
 }
 
 // проверить валидность токена и получить email для вставки в шапку сайта

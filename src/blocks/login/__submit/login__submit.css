@@ -4,6 +4,7 @@
   font-size: 18px;
   line-height: 22px;
   margin-bottom: 15px;
+  border-radius: 10px;
 }
 
 .login__submit-active {

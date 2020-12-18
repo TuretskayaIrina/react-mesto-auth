@@ -16,9 +16,11 @@ import ImagePopup from './ImagePopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import api from '../utils/api';
 import * as auth from '../utils/auth';
+import Error from '../images/error.png';
+import Ok from '../images/ok.png';
 
 function App() {
-  const[cards, setCards] = React.useState([]);
+  const [cards, setCards] = React.useState([]);
   const [currentUser, setCurrentUser] = React.useState({});
   const [cardDelete, setCardDelete] = React.useState([]);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -31,7 +33,8 @@ function App() {
     link: ''
   });
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
-  const [isSuccess, setIsSuccess] = React.useState(false);
+  const [message, setMessage] = React.useState('');
+  const [img, setImg] = React.useState('');
   const [userData, setUserData] = React.useState(null);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const history = useHistory();
@@ -65,12 +68,25 @@ function App() {
   function handleRegister(email, password) {
     return auth.register(email, password)
       .then(() => {
-        handleRegisterConfirm(true);
+        setMessage('Вы успешно зарегистрировались!');
+        setImg(Ok);
+        setIsInfoTooltipOpen(true);
         history.push('/sign-in');
       })
       .catch((err) => {
-        handleRegisterConfirm(false);
-        console.log(err);
+        if (err.status === 400) {
+          setMessage('Пароль должен быть без пробелов. Email в формате: example@domain.com');
+          setImg(Error);
+          setIsInfoTooltipOpen(true);
+        } else if (err.status === 409) {
+          setMessage('Пользователь с таким email уже зарегистрирован');
+          setImg(Error);
+          setIsInfoTooltipOpen(true);
+        } else {
+          setMessage('Что-то пошло не так! Попробуйте ещё раз');
+          setImg(Error);
+          setIsInfoTooltipOpen(true);
+        }
       })
   }
 
@@ -106,7 +122,19 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(err)
+        if (err.status === 400) {
+          setMessage('Неправильные почта или\u00A0пароль');
+          setImg(Error);
+          setIsInfoTooltipOpen(true);
+        } else if (err.status === 401) {
+          setMessage('Неправильные почта или\u00A0пароль');
+          setImg(Error);
+          setIsInfoTooltipOpen(true);
+        } else {
+          setMessage('Что-то пошло не так! Попробуйте ещё раз.');
+          setImg(Error);
+          setIsInfoTooltipOpen(true);
+        }
       })
   }
 
@@ -137,12 +165,6 @@ function App() {
       name: name,
       link: link
     })
-  }
-
-  // открыть попап InfoTooltip
-  function handleRegisterConfirm(state) {
-    setIsInfoTooltipOpen(true)
-    setIsSuccess(state);
   }
 
   // закрытие всех попапов
@@ -328,7 +350,8 @@ function App() {
           <InfoTooltip
             isOpen={isInfoTooltipOpen}
             onClose={closeAllPopups}
-            isSuccess={isSuccess}
+            img={img}
+            message={message}
           />
 
         </div>
