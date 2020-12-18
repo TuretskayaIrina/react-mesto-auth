@@ -55,4 +55,4 @@ ___
 ### Deploy
 ___
 
-[Register and put likes =)](https://cat.students.nomoreparties.space/)
+[Register and put likes =)](https://noinstagram.students.nomoreparties.xyz/)
