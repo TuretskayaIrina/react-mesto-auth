@@ -1,50 +1,50 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import FormValidator from '../hooks/FormValidator';
 
 function Login({ onLogin }) {
 
-  const[ password, setPassword ] = React.useState('');
-  const[ email, setEmail ] = React.useState('');
-
-  // обработчик изменения пароля
-  function handleChangePassword(e) {
-    setPassword(e.target.value);
-  }
-
-  // обработчик изменения email
-  function handleChangeEmail(e) {
-    setEmail (e.target.value);
-  }
+  const {values, handleChange, errors, isValid, resetForm} = FormValidator();
+  React.useEffect(() => {
+    resetForm();
+  }, [ resetForm ]);
 
   // обработчик отправки формы авторизации
   function handleSubmit(e) {
     e.preventDefault();
-    if (!email || !password) {
+    if (!values.email || !values.password) {
       return;
     }
-    onLogin(email, password)
+    onLogin(values.email, values.password)
   }
 
   return(
     <form onSubmit={handleSubmit} className="login">
       <h2 className="login__title">Вход</h2>
       <input
-        onChange={handleChangeEmail}
+        onChange={handleChange}
         className="login__input"
         required
         placeholder="Email"
         type="email"
-        value={email || ''}
+        id="email"
+        name="email"
+        value={values.email || ''}
       />
+      <span id="email-auth-error" className="popup__input-error" >{errors.email || ''}</span>
       <input
-        onChange={handleChangePassword}
+        onChange={handleChange}
         className="login__input"
         required placeholder="Пароль"
         type="password"
-        minLength="10" maxLength="40"
-        value={password || ''}
+        id="password"
+        minLength="10"
+        maxLength="40"
+        name="password"
+        value={values.password || ''}
       />
-      <button className="login__submit" type="submit">Войти</button>
+      <span id="password-auth-error" className="popup__input-error" >{errors.password || ''}</span>
+      <button className={isValid ? 'login__submit login__submit-active' : 'login__submit login__submit-disabled'} type="submit" disabled={!isValid}>Войти</button>
       <Link to="/sign-up" className="login__link">Ещё не зарегистрированы? Регистрация</Link>
     </form>
   );

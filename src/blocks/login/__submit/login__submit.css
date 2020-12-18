@@ -3,14 +3,23 @@
   padding: 14px;
   font-size: 18px;
   line-height: 22px;
-  color: #000000;
   margin-bottom: 15px;
 }
 
-.login__submit:hover {
+.login__submit-active {
+  color: #000000;
+}
+
+.login__submit-active:hover {
   transition: .2s;
   opacity: .5;
   cursor: pointer;
+}
+
+.login__submit-disabled {
+  background: #e6e8eb;
+  color: #b6bcbf;
+  border: none;
 }
 
 @media screen and (max-width: 650px) {

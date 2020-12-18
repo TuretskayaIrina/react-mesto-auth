@@ -1,61 +1,56 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import FormValidator from '../hooks/FormValidator';
 
 function Register({ onRegister }) {
-  const[ password, setPassword ] = React.useState('');
-  const[ email, setEmail ] = React.useState('');
+  // const[ password, setPassword ] = React.useState('');
+  // const[ email, setEmail ] = React.useState('');
 
-  // обработчик изменения пароля
-  function handleChangePassword(e) {
-    setPassword(e.target.value);
-  }
-
-  // обработчик изменения email
-  function handleChangeEmail(e) {
-    setEmail (e.target.value);
-  }
+  // валидация формы
+  const {values, handleChange, errors, isValid, resetForm} = FormValidator();
+  React.useEffect(() => {
+    resetForm();
+  }, [ resetForm ]);
 
   // обработчик отправки формы регистрации
   function handleSubmit(e) {
     e.preventDefault();
-    if (!email || !password) {
+    if (!values.email || !values.password) {
       return;
     }
-    onRegister(email, password)
+    onRegister(values.email, values.password)
   }
 
   return(
     <form onSubmit={handleSubmit} className="login">
       <h2 className="login__title">Регистрация</h2>
       <input
-        onChange={handleChangeEmail}
+        onChange={handleChange}
         className="login__input"
         required
         placeholder="Email"
         type="email"
         minLength="5"
         maxLength="40"
-        pattern="\S+@\S+\.\S+"
-        title="Пожалуйста, введите email в формате вашник@сервис.домен (например user@gmail.com)"
         id="email-input"
         name="email"
-        value={email || ''}
+        value={values.email || ''}
       />
+      <span id="email-register-error" className="popup__input-error" >{errors.email || ''}</span>
       <input
-        onChange={handleChangePassword}
+        onChange={handleChange}
         className="login__input"
         required
-        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
-        title="Пожалуйста, включите как минимум 1 символ верхнего регистра, 1 символ нижнего регистра и 1 цифру."
         placeholder="Пароль"
         type="password"
         minLength="10"
         maxLength="40"
         id="password-input"
         name="password"
-        value={password || ''}
+        value={values.password || ''}
       />
-      <button  className="login__submit" type="submit">Зарегистрироваться</button>
+      <span id="password-register-error" className="popup__input-error" >{errors.password || ''}</span>
+      <button  className={isValid ? 'login__submit login__submit-active' : 'login__submit login__submit-disabled'} type="submit" disabled={!isValid}>Зарегистрироваться</button>
       <Link to="/sign-in" className="login__link">Уже зарегистрированы? Войти</Link>
     </form>
   );
