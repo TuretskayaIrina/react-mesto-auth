@@ -1,5 +1,6 @@
 import React from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import errorPhoto from '../images/error-photo.png'
 
 
 function Card(props) {
@@ -29,7 +30,7 @@ function Card(props) {
 
   return(
       <div className="elements__place" key={props.card._id}>
-        <img alt={props.card.name} className="elements__img" src={props.card.link}  onClick={handleCardClick} />
+        <img alt={props.card.name} className="elements__img" src={props.card.link || errorPhoto}  onClick={handleCardClick} />
         <button onClick={handleDeleteClick} className={`${cardDeleteButtonClassName}`} type="button" />
         <div className="elements__about">
           <h2 className="elements__name">{props.card.name}</h2>
