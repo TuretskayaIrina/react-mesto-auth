@@ -5,6 +5,10 @@
   border-radius: 50%;
   border-style: none;
   margin-right: 30px;
+  background: url('https://icon-library.com/images/icon-avatars/icon-avatars-18.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
 @media screen and (max-width : 1000px) {

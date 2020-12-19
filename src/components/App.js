@@ -52,6 +52,7 @@ function App() {
         .then( ([{ data: user }, items ]) => {
           setCurrentUser(user)
           setCards(items.reverse())
+          console.log(items)
         })
         .catch((err) => console.log(err))
     }
@@ -197,7 +198,7 @@ function App() {
 
   // обработчик лайков
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i === currentUser._id);
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
 
     if (!isLiked) {
       api.setLike({ token: localStorage.jwt, cardId: card._id })
@@ -259,6 +260,7 @@ function App() {
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
+        console.log(newCard.owner)
       })
       .catch((err) => console.log(err))
   }

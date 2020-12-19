@@ -5,13 +5,18 @@ import errorPhoto from '../images/error-photo.png'
 
 function Card(props) {
 
-  const { _id: userId } = React.useContext(CurrentUserContext)
+  const currentUser = React.useContext(CurrentUserContext);
 
-  const isOwn = props.card.owner === userId;
-  const cardDeleteButtonClassName = (`elements__delete ${isOwn ? 'elements__delete_active' : ''}`);
+  const isMyCard = props.card.owner._id === currentUser._id;
+  const cardDeleteButtonClassName = (`elements__delete ${isMyCard ? 'elements__delete_active' : ''}`);
 
-  const isLiked = props.card.likes.some(i => i === userId);
+  const isLiked = props.card.likes.some((item) => item._id === currentUser._id);
   const cardLikeButtonClassName = (`elements__like ${isLiked ? 'elements__like_active' : ''}`);
+
+  // массив имен лайкнувших пользователей
+  const whoIsLiked = props.card.likes.map((item) => item.name);
+  console.log(whoIsLiked);
+
 
   // обработчик попапа просмотра картинки
   function handleCardClick() {

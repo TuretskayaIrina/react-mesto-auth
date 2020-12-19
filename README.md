@@ -43,14 +43,10 @@ $ npm run build
 ### Todos
 ___
 
-- background image for cards
-- background image for avatar
 - output validation in span
-- more messages for InfoTooltip
 - loader
 - output like list
 - cookies
-- more security
 
 ### Deploy
 ___
