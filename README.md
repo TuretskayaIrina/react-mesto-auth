@@ -43,9 +43,9 @@ $ npm run build
 ### Todos
 ___
 
-- output validation in span
+- check mail for registration
 - loader
-- cookies
+- websocket
 
 ### Deploy
 ___

@@ -39,6 +39,39 @@ function Card(props) {
     }
   }
 
+  // eslint-disable-next-line no-redeclare
+  function nameLiked(number) {
+    const arr = whoIsLiked;
+    if (number === 0) {
+      return `Это фото еще не оценили...`
+    } else if (number === 1) {
+      return `Нравится: ${arr[0]}`
+    } else if (number === 2) {
+      let newArr = arr.splice(0, 2);
+      const nameList = newArr.join(', ');
+      return `Нравится: ${nameList}`
+    } else if (number > 2) {
+      let newArr = arr.splice(0, 2);
+      const nameList = newArr.join(', ');
+      return `Нравится: ${nameList} `
+    } else if (number >= 3) {
+      let newArr = arr.splice(0, 2);
+      const nameList = newArr.join(', ');
+      return `Нравится: ${nameList} `
+    }
+  }
+
+  function nameLikedCounter(number) {
+    const arr = whoIsLiked;
+    if (number > 2) {
+      const likeCounter = arr.length
+      return `и еще ${likeCounter}`
+    }  else if (number >= 999) {
+      const likeCounter = arr.length - 2
+      return `+${likeCounter}`
+    }
+  }
+
   // dsводим три первых аватарки пользователей лайкнувших фото
   const whoIsLikedAvatar = props.card.likes.map((item) => item.avatar);
   const first = whoIsLikedAvatar[0];
@@ -91,7 +124,10 @@ function Card(props) {
                   <img className="elements__like-avatars-item" src={third} alt="avatar"></img>
                 }
               </div>
-              { nameLiked(whoIsLikedAvatar.length) }
+              <div className="elements__like-name">
+                <p className="elements__like-name-items">{ nameLiked(whoIsLikedAvatar.length) }</p>
+                <p className="elements__like-name-counter">{ nameLikedCounter(whoIsLikedAvatar.length) }</p>
+              </div>
             </div>
           </div>
         </div>

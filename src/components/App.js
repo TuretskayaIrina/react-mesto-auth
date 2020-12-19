@@ -52,7 +52,6 @@ function App() {
         .then( ([{ data: user }, items ]) => {
           setCurrentUser(user)
           setCards(items.reverse())
-          console.log(items)
         })
         .catch((err) => console.log(err))
     }
@@ -260,7 +259,6 @@ function App() {
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
-        console.log(newCard.owner)
       })
       .catch((err) => console.log(err))
   }

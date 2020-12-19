@@ -9,6 +9,9 @@
 @import url('./__like-avatars_width/elements__like-avatars_width.css');
 @import url('./__like-avatars-item/elements__like-avatars-item.css');
 @import url('./__like-list/elements__like-list.css');
+@import url('./__like-name/elements__like-name.css');
+@import url('./__like-name-items/elements__like-name-items.css');
+@import url('./__like-name-counter/elements__like-name-counter.css');
 @import url('./__like/elements__like.css');
 @import url('./__delete/elements__delete.css');
 
