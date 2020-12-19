@@ -45,7 +45,6 @@ ___
 
 - output validation in span
 - loader
-- output like list
 - cookies
 
 ### Deploy

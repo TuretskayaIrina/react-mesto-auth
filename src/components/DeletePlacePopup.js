@@ -16,6 +16,11 @@ function DeletePlacePopup(props) {
     onSubmit={handleSubmit}
     name='popup-delite'
     title='Вы уверены?'
+    children={
+      <>
+        <button className="popup__button-save" type="submit">Да</button>
+      </>
+    }
     />
   )
 }
