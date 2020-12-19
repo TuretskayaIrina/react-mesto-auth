@@ -1,0 +1,11 @@
+.elements__like-box{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: -0.5px;
+  box-sizing: border-box;
+  padding: 5px;
+}
